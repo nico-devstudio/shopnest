@@ -1,3 +1,5 @@
+import CartItem from "./CartItem";
+
 export default function Cart({ list, onSetList }) {
   const totalValue = list.reduce((sum, product) => {
     return sum + product.quantity * product.price;
@@ -30,28 +32,20 @@ export default function Cart({ list, onSetList }) {
   return (
     <div>
       <h2>Cart</h2>
-
       {list.length === 0 ? (
         <p>Your Cart is empty</p>
       ) : (
         <ul>
-          {list.map((product) => {
-            return (
-              <li key={product.id}>
-                {product.name} ${product.price}{" "}
-                <button
-                  onClick={() => handleDeductMore(product.id, product.quantity)}
-                >
-                  -
-                </button>
-                {product.quantity}
-                <button onClick={() => handleAddMore(product.id)}>+</button>
-              </li>
-            );
-          })}
+          {list.map((product) => (
+            <CartItem
+              onAdd={handleAddMore}
+              onDeduct={handleDeductMore}
+              list={list}
+              product={product}
+            />
+          ))}
         </ul>
       )}
-
       <h3>Total: {totalValue}</h3>
     </div>
   );
