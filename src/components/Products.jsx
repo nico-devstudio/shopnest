@@ -1,10 +1,30 @@
-export default function Products({ onSetList, onSetValue }) {
-  function handleAddProduct(productName, price) {
-    onSetList((prevProductList) => [
-      ...prevProductList,
-      { id: Date.now(), product: productName, price: price, quantity: 1 },
-    ]);
-    onSetValue((prevValue) => prevValue + price);
+import Product from "./Product";
+
+export default function Products({ onSetList, list }) {
+  const products = [
+    { id: 1, name: "Keyboard", price: 50 },
+    { id: 2, name: "Mouse", price: 25 },
+    { id: 3, name: "Headphones", price: 80 },
+    { id: 4, name: "Monitor", price: 200 },
+  ];
+
+  function handleAddProduct(product) {
+    const existingProduct = list.find(
+      (productList) => productList.id === product.id,
+    );
+
+    existingProduct
+      ? onSetList((prevProductList) =>
+          prevProductList.map((productList) =>
+            productList.id === product.id
+              ? { ...productList, quantity: productList.quantity + 1 }
+              : productList,
+          ),
+        )
+      : onSetList((prevProductList) => [
+          ...prevProductList,
+          { ...product, quantity: 1 },
+        ]);
   }
 
   return (
@@ -12,24 +32,13 @@ export default function Products({ onSetList, onSetValue }) {
       <h2>Products</h2>
 
       <ol>
-        <li>
-          Keyboard $50{" "}
-          <button onClick={() => handleAddProduct("Keyboard", 50)}>Add</button>
-        </li>
-        <li>
-          Mouse $25{" "}
-          <button onClick={() => handleAddProduct("Mouse", 25)}>Add</button>
-        </li>
-        <li>
-          Headphones $80{" "}
-          <button onClick={() => handleAddProduct("Headphones", 80)}>
-            Add
-          </button>
-        </li>
-        <li>
-          Monitor $200{" "}
-          <button onClick={() => handleAddProduct("Monitor", 200)}>Add</button>
-        </li>
+        {products.map((product) => (
+          <Product
+            key={product.id}
+            product={product}
+            onAddProduct={handleAddProduct}
+          />
+        ))}
       </ol>
     </div>
   );
