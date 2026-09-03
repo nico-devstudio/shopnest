@@ -1,6 +1,6 @@
 import Product from "./Product";
 
-export default function Products({ addProduct, Onsearch, products }) {
+export default function Products({ addProduct, Onsearch, products, category }) {
   return (
     <div>
       <h2>Products</h2>
@@ -12,7 +12,7 @@ export default function Products({ addProduct, Onsearch, products }) {
 
       <div>
         <strong>Category:</strong>
-        <select>
+        <select onChange={(event) => category(event.target.value)}>
           <option value="">Select a category</option>
           <option value="Accesories">Accesories</option>
           <option value="Electronics">Electronics</option>

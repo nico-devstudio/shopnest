@@ -5,6 +5,7 @@ import Cart from "./components/Cart";
 function App() {
   const [cart, setCart] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [category, setCategory] = useState("");
 
   const products = [
     { id: 1, name: "Keyboard", price: 50, category: "Accesories" },
@@ -12,6 +13,10 @@ function App() {
     { id: 3, name: "Headphones", price: 80, category: "Electronics" },
     { id: 4, name: "Monitor", price: 200, category: "Electronics" },
   ];
+
+  function handleCategory(value) {
+    setCategory(value);
+  }
 
   function handleAddProduct(product) {
     setCart((prevCart) => {
@@ -60,12 +65,12 @@ function App() {
   function handleSearch(input) {
     setSearchTerm(input.trim());
   }
-  const filteredProducts =
-    searchTerm === ""
-      ? products
-      : products.filter((product) =>
-          product.name.toLowerCase().includes(searchTerm.toLowerCase()),
-        );
+  const filteredProducts = products.filter(
+    (product) =>
+      (searchTerm === "" ||
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())) &&
+      (category === "" || product.category === category),
+  );
 
   return (
     <>
@@ -75,6 +80,7 @@ function App() {
         addProduct={handleAddProduct}
         Onsearch={handleSearch}
         products={filteredProducts}
+        category={handleCategory}
       />
       <Cart
         addMore={handleAddMore}
