@@ -8,10 +8,10 @@ function App() {
   const [category, setCategory] = useState("");
 
   const products = [
-    { id: 1, name: "Keyboard", price: 50, category: "Accesories" },
-    { id: 2, name: "Mouse", price: 25, category: "Accesories" },
-    { id: 3, name: "Headphones", price: 80, category: "Electronics" },
-    { id: 4, name: "Monitor", price: 200, category: "Electronics" },
+    { id: 1, name: "Keyboard", price: 50, category: "Accesories", stock: 3 },
+    { id: 2, name: "Mouse", price: 25, category: "Accesories", stock: 3 },
+    { id: 3, name: "Headphones", price: 80, category: "Electronics", stock: 3 },
+    { id: 4, name: "Monitor", price: 200, category: "Electronics", stock: 3 },
   ];
 
   function handleCategory(value) {
@@ -21,23 +21,24 @@ function App() {
   function handleAddProduct(product) {
     setCart((prevCart) => {
       const existingProduct = prevCart.find((item) => item.id === product.id);
-
-      if (existingProduct) {
-        return prevCart.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item,
-        );
-      } else {
+      if (product.stock !== 0) {
+        if (existingProduct) {
+          return prevCart.map((item) =>
+            item.id === product.id && item.quantity < product.stock
+              ? { ...item, quantity: item.quantity + 1 }
+              : item,
+          );
+        }
         return [...prevCart, { ...product, quantity: 1 }];
       }
+      return prevCart;
     });
   }
 
   function handleAddMore(id) {
     setCart((prevList) =>
       prevList.map((product) =>
-        product.id === id
+        product.id === id && product.quantity < product.stock
           ? { ...product, quantity: product.quantity + 1 }
           : product,
       ),
@@ -74,7 +75,7 @@ function App() {
 
   return (
     <>
-      <h1>Shopping Cart</h1>
+      <h1>ShopNest</h1>
 
       <Products
         addProduct={handleAddProduct}
