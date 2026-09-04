@@ -1,9 +1,14 @@
-export default function Product({ product, onAddProduct }) {
+export default function Product({ product, onAddProduct, remainingStock }) {
   return (
     <li>
       {product.name} - ${product.price} <br />
-      Stock: {product.stock} <br />
-      <button onClick={() => onAddProduct(product)}>Add</button>
+      Available: {remainingStock} <br />
+      <button
+        onClick={() => onAddProduct(product)}
+        disabled={remainingStock === 0}
+      >
+        Add
+      </button>
     </li>
   );
 }

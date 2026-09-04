@@ -8,8 +8,8 @@ function App() {
   const [category, setCategory] = useState("");
 
   const products = [
-    { id: 1, name: "Keyboard", price: 50, category: "Accesories", stock: 3 },
-    { id: 2, name: "Mouse", price: 25, category: "Accesories", stock: 3 },
+    { id: 1, name: "Keyboard", price: 50, category: "Accessories", stock: 3 },
+    { id: 2, name: "Mouse", price: 25, category: "Accessories", stock: 3 },
     { id: 3, name: "Headphones", price: 80, category: "Electronics", stock: 3 },
     { id: 4, name: "Monitor", price: 200, category: "Electronics", stock: 3 },
   ];
@@ -21,11 +21,14 @@ function App() {
   function handleAddProduct(product) {
     setCart((prevCart) => {
       const existingProduct = prevCart.find((item) => item.id === product.id);
-      if (product.stock !== 0) {
+      if (product.stock > 0) {
         if (existingProduct) {
           return prevCart.map((item) =>
             item.id === product.id && item.quantity < product.stock
-              ? { ...item, quantity: item.quantity + 1 }
+              ? {
+                  ...item,
+                  quantity: item.quantity + 1,
+                }
               : item,
           );
         }
@@ -82,6 +85,7 @@ function App() {
         Onsearch={handleSearch}
         products={filteredProducts}
         category={handleCategory}
+        cart={cart}
       />
       <Cart
         addMore={handleAddMore}
