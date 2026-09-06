@@ -1,6 +1,14 @@
 import CartItem from "./CartItem";
 
-export default function Cart({ list, deductMore, addMore, remove, clearCart }) {
+export default function Cart({
+  list,
+  onDeduct,
+  onAdd,
+  onRemove,
+  onClearCart,
+  onCheckout,
+  msgCheckout,
+}) {
   const totalValue = list.reduce((sum, product) => {
     return sum + product.quantity * product.price;
   }, 0);
@@ -20,18 +28,20 @@ export default function Cart({ list, deductMore, addMore, remove, clearCart }) {
             {list.map((product) => (
               <CartItem
                 key={product.id}
-                onAdd={addMore}
-                onDeduct={deductMore}
+                onAdd={onAdd}
+                onDeduct={onDeduct}
                 product={product}
-                onRemove={remove}
+                onRemove={onRemove}
               />
             ))}
           </ul>
-          <button onClick={clearCart}>Clear Cart</button>
+          <h4>Total Items: {totalItems}</h4>
+          <h3>Total: ${totalValue.toFixed(2)}</h3>
+          <button onClick={onClearCart}>Clear Cart</button>{" "}
+          <button onClick={onCheckout}>Checkout</button>
         </div>
       )}
-      <h4>Items/Item: {totalItems}</h4>
-      <h3>Total: ${totalValue.toFixed(2)}</h3>
+      <p>{msgCheckout}</p>
     </div>
   );
 }

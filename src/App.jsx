@@ -6,6 +6,7 @@ function App() {
   const [cart, setCart] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
+  const [checkoutMsg, setCheckoutMsg] = useState("");
 
   const products = [
     { id: 1, name: "Keyboard", price: 50, category: "Accessories", stock: 3 },
@@ -14,27 +15,22 @@ function App() {
     { id: 4, name: "Monitor", price: 200, category: "Electronics", stock: 3 },
   ];
 
-  function handleCategory(value) {
-    setCategory(value);
-  }
-
   function handleAddProduct(product) {
+    setCheckoutMsg("");
     setCart((prevCart) => {
       const existingProduct = prevCart.find((item) => item.id === product.id);
-      if (product.stock > 0) {
-        if (existingProduct) {
-          return prevCart.map((item) =>
-            item.id === product.id && item.quantity < product.stock
-              ? {
-                  ...item,
-                  quantity: item.quantity + 1,
-                }
-              : item,
-          );
-        }
-        return [...prevCart, { ...product, quantity: 1 }];
+
+      if (existingProduct) {
+        return prevCart.map((item) =>
+          item.id === product.id && item.quantity < product.stock
+            ? {
+                ...item,
+                quantity: item.quantity + 1,
+              }
+            : item,
+        );
       }
-      return prevCart;
+      return [...prevCart, { ...product, quantity: 1 }];
     });
   }
 
@@ -76,23 +72,32 @@ function App() {
       (category === "" || product.category === category),
   );
 
+  function handleCheckout() {
+    if (cart.length > 0) {
+      setCart([]);
+      setCheckoutMsg("✅ Order placed successfully!");
+    }
+  }
+
   return (
     <>
       <h1>ShopNest</h1>
 
       <Products
-        addProduct={handleAddProduct}
-        Onsearch={handleSearch}
+        onAdd={handleAddProduct}
+        onSearch={handleSearch}
         products={filteredProducts}
-        category={handleCategory}
+        category={setCategory}
         cart={cart}
       />
       <Cart
-        addMore={handleAddMore}
-        deductMore={handleDeductMore}
-        remove={handleRemoveItem}
-        clearCart={handleClearCart}
+        onAdd={handleAddMore}
+        onDeduct={handleDeductMore}
+        onRemove={handleRemoveItem}
+        onClearCart={handleClearCart}
         list={cart}
+        onCheckout={handleCheckout}
+        msgCheckout={checkoutMsg}
       />
     </>
   );

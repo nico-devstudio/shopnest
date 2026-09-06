@@ -1,8 +1,8 @@
 import Product from "./Product";
 
 export default function Products({
-  addProduct,
-  Onsearch,
+  onAdd,
+  onSearch,
   products,
   category,
   cart,
@@ -13,7 +13,7 @@ export default function Products({
 
       <h4>
         Search:{" "}
-        <input type="text" onChange={(event) => Onsearch(event.target.value)} />
+        <input type="text" onChange={(event) => onSearch(event.target.value)} />
       </h4>
 
       <div>
@@ -38,7 +38,7 @@ export default function Products({
               <Product
                 key={product.id}
                 product={product}
-                onAddProduct={addProduct}
+                onAdd={onAdd}
                 remainingStock={remainingStock}
               />
             );
