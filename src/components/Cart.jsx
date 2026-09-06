@@ -21,7 +21,7 @@ export default function Cart({
     <div>
       <h2>Cart</h2>
       {list.length === 0 ? (
-        <p>Your Cart is empty</p>
+        <p>{msgCheckout}</p>
       ) : (
         <div>
           <ul>
@@ -41,7 +41,6 @@ export default function Cart({
           <button onClick={onCheckout}>Checkout</button>
         </div>
       )}
-      <p>{msgCheckout}</p>
     </div>
   );
 }
