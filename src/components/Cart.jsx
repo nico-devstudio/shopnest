@@ -18,7 +18,7 @@ export default function Cart({
   }, 0);
 
   return (
-    <div>
+    <div className="cart">
       <h2>Cart</h2>
       {list.length === 0 ? (
         <p>{msgCheckout}</p>
@@ -37,8 +37,12 @@ export default function Cart({
           </ul>
           <h4>Total Items: {totalItems}</h4>
           <h3>Total: ${totalValue.toFixed(2)}</h3>
-          <button onClick={onClearCart}>Clear Cart</button>{" "}
-          <button onClick={onCheckout}>Checkout</button>
+          <button onClick={onClearCart} className="clear-btn">
+            Clear Cart
+          </button>{" "}
+          <button onClick={onCheckout} className="checkout-btn">
+            Checkout
+          </button>
         </div>
       )}
     </div>

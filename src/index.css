@@ -85,3 +85,99 @@ button:disabled {
 .product-card p {
   margin: 6px 0;
 }
+
+.cart {
+  margin-top: 40px;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.cart ul {
+  list-style: none;
+  padding: 0;
+}
+
+.cart li {
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.cart h3 {
+  margin-top: 20px;
+}
+
+.cart button {
+  margin-right: 5px;
+}
+
+.cart-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cart-item>div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cart-item>div:first-child button {
+  padding: 5px 10px;
+}
+
+.cart-item>div:first-child button:first-child {
+  margin-right: 15px;
+}
+
+.quantity-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  font-size: 18px;
+}
+
+.remove-btn {
+  padding: 6px 10px;
+}
+
+.clear-btn {
+  margin-top: 10px;
+}
+
+.checkout-btn {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.product-card button:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 800px) {
+  ol {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  ol {
+    grid-template-columns: 1fr;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  select {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
